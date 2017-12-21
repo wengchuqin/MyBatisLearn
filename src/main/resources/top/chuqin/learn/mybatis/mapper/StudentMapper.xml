@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指用户自定义的命名空间。 -->
+<mapper namespace="top.chuqin.learn.mybatis.mapper.StudentMapper">
+    <!-- 关联对象查询 -->
+    <resultMap id="studentResultMap" type="student">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+
+        <!-- 关联关系 -->
+        <association property="clazz" column="clazz_id" javaType="top.chuqin.learn.mybatis.domain.Clazz" select="selectClazzWithId"></association>
+    </resultMap>
+    <!-- 根据id查询班级 -->
+    <select id="selectClazzWithId" resultType="top.chuqin.learn.mybatis.domain.Clazz">
+        SELECT
+            *
+        FROM
+            tb_clazz
+        WHERE
+            id = #{id}
+    </select>
+    <!-- 查询学生信息 -->
+    <select id="getAllStudent" resultMap="studentResultMap">
+        SELECT
+            *
+        FROM
+            tb_student
+    </select>
+
+</mapper>

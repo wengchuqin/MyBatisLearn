@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指用户自定义的命名空间。 -->
+<mapper namespace="top.chuqin.learn.mybatis.mapper.UserMapper">
+
+    <!--
+        id="save"是唯一的标示符
+        parameterType属性指明插入时使用的参数类型
+        useGeneratedKeys="true"表示使用数据库的自动增长策略
+        keyProperty="id"  会把自动生成的主键赋值给user对象的id字段
+     -->
+    <insert id="save" parameterType="user" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO
+            tb_user(name, sex, age)
+        VALUES
+            (#{name}, #{sex}, #{age})
+    </insert>
+
+    <select id="selectUser" parameterType="int" resultType="user">
+        SELECT
+            *
+        FROM
+            tb_user
+        WHERE
+            id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="user">
+        UPDATE
+            tb_user
+        SET
+            name = #{name},
+            sex = #{sex},
+            age = #{age}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM
+            tb_user
+        WHERE
+            id = #{id}
+    </delete>
+
+    <!-- 使用Map来返回对象 -->
+    <select id="selectAllWithMap" resultType="map">
+        SELECT
+            *
+        FROM
+            tb_user
+    </select>
+
+    <!-- 使用resultMap -->
+    <resultMap id="userResultMap" type="top.chuqin.learn.mybatis.domain.User">
+        <id property="id" column="user_id"></id>
+        <result property="name" column="user_name"></result>
+        <result property="sex" column="user_sex"></result>
+        <result property="age" column="user_age"></result>
+    </resultMap>
+
+    <select id="selectAllWithResultMap" resultMap="userResultMap">
+        SELECT
+            *
+        FROM
+            tb_user2
+    </select>
+
+</mapper>

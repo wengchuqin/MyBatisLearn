@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指用户自定义的命名空间。 -->
+<mapper namespace="top.chuqin.learn.mybatis.mapper.ClazzMapper">
+    <resultMap id="clazzResultMap" type="top.chuqin.learn.mybatis.domain.Clazz">
+        <id property="id" column="id"></id>
+        <result property="code" column="code"></result>
+        <collection property="students" javaType="ArrayList" column="id" ofType="student"
+        select="selectStudentWithId"></collection>
+    </resultMap>
+    <select id="selectStudentWithId" resultType="student">
+        SELECT
+        *
+        FROM
+        tb_student
+        WHERE
+        clazz_id = #{id}
+    </select>
+
+    <select id="getAllClazz" resultMap="clazzResultMap">
+        SELECT
+        *
+        FROM
+        tb_clazz
+    </select>
+
+    <select id="getById" resultType="top.chuqin.learn.mybatis.domain.Clazz">
+        SELECT
+          *
+        FROM
+          tb_clazz
+        WHERE
+          id = #{id}
+    </select>
+
+</mapper>
