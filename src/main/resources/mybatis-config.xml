@@ -13,7 +13,8 @@
 
     <!-- 定义类的别名 -->
     <typeAliases>
-        <typeAlias type="top.chuqin.learn.mybatis.domain.User" alias="user"></typeAlias>
+        <typeAlias type="top.chuqin.learn.mybatis.domain.Card" alias="card"></typeAlias>
+        <typeAlias type="top.chuqin.learn.mybatis.domain.Person" alias="person"></typeAlias>
     </typeAliases>
 
     <environments default="mysql">
@@ -32,6 +33,7 @@
     </environments>
     <!-- mappers告诉了MyBatis去哪里找持久化类的映射文件 -->
     <mappers>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/UserMapper.xml"/>
+        <mapper resource="top/chuqin/learn/mybatis/mapper/PersonMapper.xml"/>
+        <mapper resource="top/chuqin/learn/mybatis/mapper/CardMapper.xml"/>
     </mappers>
 </configuration>
