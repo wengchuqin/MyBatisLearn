@@ -14,7 +14,6 @@
     <!-- 定义类的别名 -->
     <typeAliases>
         <typeAlias type="top.chuqin.learn.mybatis.domain.User" alias="user"></typeAlias>
-        <typeAlias type="top.chuqin.learn.mybatis.domain.Student" alias="student"></typeAlias>
     </typeAliases>
 
     <environments default="mysql">
@@ -34,7 +33,5 @@
     <!-- mappers告诉了MyBatis去哪里找持久化类的映射文件 -->
     <mappers>
         <mapper resource="top/chuqin/learn/mybatis/mapper/UserMapper.xml"/>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/StudentMapper.xml"/>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/ClazzMapper.xml"/>
     </mappers>
 </configuration>
