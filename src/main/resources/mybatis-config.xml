@@ -9,12 +9,16 @@
     <!-- 指定 MyBatis 所用日志的具体实现 -->
     <settings>
         <setting name="logImpl" value="LOG4J"/>
+        <setting name="lazyLoadingEnabled" value="true"></setting>
+        <setting name="aggressiveLazyLoading" value="false"></setting>
     </settings>
 
     <!-- 定义类的别名 -->
     <typeAliases>
         <typeAlias type="top.chuqin.learn.mybatis.domain.Card" alias="card"></typeAlias>
         <typeAlias type="top.chuqin.learn.mybatis.domain.Person" alias="person"></typeAlias>
+        <typeAlias type="top.chuqin.learn.mybatis.domain.Clazz" alias="clazz"></typeAlias>
+        <typeAlias type="top.chuqin.learn.mybatis.domain.Student" alias="student"></typeAlias>
     </typeAliases>
 
     <environments default="mysql">
@@ -35,5 +39,7 @@
     <mappers>
         <mapper resource="top/chuqin/learn/mybatis/mapper/PersonMapper.xml"/>
         <mapper resource="top/chuqin/learn/mybatis/mapper/CardMapper.xml"/>
+        <mapper resource="top/chuqin/learn/mybatis/mapper/ClazzMapper.xml"/>
+        <mapper resource="top/chuqin/learn/mybatis/mapper/StudentMapper.xml"/>
     </mappers>
 </configuration>
