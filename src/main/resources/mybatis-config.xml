@@ -15,13 +15,7 @@
 
     <!-- 定义类的别名 -->
     <typeAliases>
-        <typeAlias type="top.chuqin.learn.mybatis.domain.Card" alias="card"></typeAlias>
-        <typeAlias type="top.chuqin.learn.mybatis.domain.Person" alias="person"></typeAlias>
-        <typeAlias type="top.chuqin.learn.mybatis.domain.Clazz" alias="clazz"></typeAlias>
-        <typeAlias type="top.chuqin.learn.mybatis.domain.Student" alias="student"></typeAlias>
-        <typeAlias type="top.chuqin.learn.mybatis.domain.Consumer" alias="consumer"></typeAlias>
-        <typeAlias type="top.chuqin.learn.mybatis.domain.Order" alias="order"></typeAlias>
-        <typeAlias type="top.chuqin.learn.mybatis.domain.Article" alias="article"></typeAlias>
+        <typeAlias type="top.chuqin.learn.mybatis.domain.Employee" alias="employee"></typeAlias>
     </typeAliases>
 
     <environments default="mysql">
@@ -40,12 +34,6 @@
     </environments>
     <!-- mappers告诉了MyBatis去哪里找持久化类的映射文件 -->
     <mappers>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/PersonMapper.xml"/>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/CardMapper.xml"/>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/ClazzMapper.xml"/>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/StudentMapper.xml"/>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/ConsumerMapper.xml"/>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/OrderMapper.xml"/>
-        <mapper resource="top/chuqin/learn/mybatis/mapper/ArticleMapper.xml"/>
+        <mapper resource="top/chuqin/learn/mybatis/mapper/EmployeeMapper.xml"/>
     </mappers>
 </configuration>
