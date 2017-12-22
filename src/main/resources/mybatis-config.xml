@@ -19,6 +19,9 @@
         <typeAlias type="top.chuqin.learn.mybatis.domain.Person" alias="person"></typeAlias>
         <typeAlias type="top.chuqin.learn.mybatis.domain.Clazz" alias="clazz"></typeAlias>
         <typeAlias type="top.chuqin.learn.mybatis.domain.Student" alias="student"></typeAlias>
+        <typeAlias type="top.chuqin.learn.mybatis.domain.Consumer" alias="consumer"></typeAlias>
+        <typeAlias type="top.chuqin.learn.mybatis.domain.Order" alias="order"></typeAlias>
+        <typeAlias type="top.chuqin.learn.mybatis.domain.Article" alias="article"></typeAlias>
     </typeAliases>
 
     <environments default="mysql">
@@ -41,5 +44,8 @@
         <mapper resource="top/chuqin/learn/mybatis/mapper/CardMapper.xml"/>
         <mapper resource="top/chuqin/learn/mybatis/mapper/ClazzMapper.xml"/>
         <mapper resource="top/chuqin/learn/mybatis/mapper/StudentMapper.xml"/>
+        <mapper resource="top/chuqin/learn/mybatis/mapper/ConsumerMapper.xml"/>
+        <mapper resource="top/chuqin/learn/mybatis/mapper/OrderMapper.xml"/>
+        <mapper resource="top/chuqin/learn/mybatis/mapper/ArticleMapper.xml"/>
     </mappers>
 </configuration>
