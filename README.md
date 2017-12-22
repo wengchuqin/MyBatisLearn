@@ -1,51 +1,49 @@
 # MyBatisLearn MyBatis学习项目
 
-## 一对一映射
-Card，Person
-
-## 一对多映射
-Clazz，Student
-
-
-
-## 分支需要的环境
+## 复杂查询
 ### 数据库
-#### 一对一查询
-CREATE TABLE tb_card(
+CREATE TABLE tb_consumer(
 id INT PRIMARY KEY AUTO_INCREMENT,
-code VARCHAR(18)
+username VARCHAR(18)
 );
-INSERT INTO tb_card(code) values('12345678');
+INSERT INTO tb_consumer(id, username) VALUES(1, "chuqin");
+INSERT INTO tb_consumer(id, username) VALUES(2, "afang");
 
-CREATE TABLE tb_person(
+
+CREATE TABLE tb_article(
 id INT PRIMARY KEY AUTO_INCREMENT,
 name VARCHAR(18),
-sex VARCHAR(18),
-age INT,
-card_id INT UNIQUE,
-FOREIGN KEY(card_id) REFERENCES tb_card(id)
+price DOUBLE
 );
-INSERT INTO tb_person(name, sex, age, card_id) VALUES("jack", "男", 22, 1);
+INSERT INTO tb_article(id, name, price) VALUES(1, "饼干1", 111);
+INSERT INTO tb_article(id, name, price) VALUES(2, "饼干1", 222);
+INSERT INTO tb_article(id, name, price) VALUES(3, "饼干3", 333);
 
-#### 一对多查询
-CREATE TABLE tb_clazz(
-id INT(11)  PRIMARY KEY AUTO_INCREMENT,
-code VARCHAR(18)
-);
-INSERT INTO tb_clazz(code) VALUES("j1601");
-INSERT INTO tb_clazz(code) VALUES("j1602");
 
-CREATE TABLE tb_student(
-id INT(11)  PRIMARY KEY AUTO_INCREMENT,
-name VARCHAR(18),
-sex CHAR(3),
-age INT,
-clazz_id INT,
-FOREIGN KEY (clazz_id) REFERENCES tb_clazz(id)
+CREATE TABLE tb_order(
+id INT PRIMARY KEY AUTO_INCREMENT,
+total DOUBLE,
+consumer_id INT,
+FOREIGN KEY(consumer_id) REFERENCES tb_consumer(id)
 );
-INSERT INTO tb_student(name , sex , age ,clazz_id ) VALUES("jack", "男", 22, 1);
-INSERT INTO tb_student(name , sex , age ,clazz_id ) VALUES("jack", "男", 23, 1);
-INSERT INTO tb_student(name , sex , age ,clazz_id ) VALUES("jack", "男", 24, 2);
-INSERT INTO tb_student(name , sex , age ,clazz_id ) VALUES("jack", "男", 25, 2);
+INSERT INTO tb_order(id, total , consumer_id ) VALUES(1, 111, 1);
+INSERT INTO tb_order(id, total , consumer_id ) VALUES(2, 2223, 1);
+
+
+CREATE TABLE tb_item(
+order_id INT,
+article_id INT,
+amount INT,
+PRIMARY KEY (order_id, article_id),
+FOREIGN KEY(order_id) REFERENCES tb_order(id),
+FOREIGN KEY(article_id) REFERENCES tb_article(id)
+);
+INSERT INTO tb_item(order_id , article_id , amount ) VALUES(1, 1, 1);
+INSERT INTO tb_item(order_id , article_id , amount ) VALUES(1, 2, 1);
+INSERT INTO tb_item(order_id , article_id , amount ) VALUES(1, 3, 2);
+INSERT INTO tb_item(order_id , article_id , amount ) VALUES(2, 2, 2);
+INSERT INTO tb_item(order_id , article_id , amount ) VALUES(2, 3, 2);
+
+
 
 

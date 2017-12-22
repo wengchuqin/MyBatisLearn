@@ -4,15 +4,16 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import top.chuqin.learn.mybatis.domain.Person;
+import top.chuqin.learn.mybatis.domain.Article;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by wengchuqin on 2017/12/21.
  */
-public class PersonService {
+public class ArticleService {
 
     private static SqlSessionFactory sqlSessionFactory = null;
 
@@ -27,13 +28,12 @@ public class PersonService {
     }
 
 
-
-    public Person selectPeopleById(Integer id){
+    public List<Article> getArticleListByOrderId(Integer orderId){
         SqlSession session = sqlSessionFactory.openSession();
-        Person user = session.selectOne("top.chuqin.learn.mybatis.mapper.PersonMapper.selectPersonById", id);
+        List<Article> articleList = session.selectList("top.chuqin.learn.mybatis.mapper.ArticleMapper.selectArticleByOrderId", orderId);
         session.commit();
         session.close();
-        return user;
+        return articleList;
     }
 
 }

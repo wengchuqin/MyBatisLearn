@@ -5,7 +5,7 @@
 <mapper namespace="top.chuqin.learn.mybatis.mapper.OrderMapper">
 
     <resultMap id="orderResultMap" type="order">
-        <id property="id" column="id"></id>
+        <id property="id" column="oid"></id>
         <result property="total" column="total"></result>
         <collection property="articles" javaType="ArrayList"
                     column="oid" ofType="article" fetchType="lazy"
@@ -15,16 +15,30 @@
             <result property="price" column="price"></result>
         </collection>
     </resultMap>
-    <select id="selectOrderByConsumerId" resultMap="orderResultMap">
+
+    <!-- 注意：如果查询出来的列同名，则需要使用别名区分 -->
+    <select id="selectOrderById" resultMap="orderResultMap" parameterType="int" >
       SELECT
-        *
+        c.*,
+        o.id as oid,
+        total,
+        consumer_id
       FROM
-        tb_consuer c ,
+        tb_consumer c ,
         tb_order o
       WHERE
         c.id = o.consumer_id
       AND
         o.id = #{id}
+    </select>
+
+    <select id="selectOrderByConsumerId" parameterType="int" resultType="order">
+        SELECT
+          *
+        FROM
+          tb_order
+        WHERE
+          consumer_id = #{id}
     </select>
 
 </mapper>
