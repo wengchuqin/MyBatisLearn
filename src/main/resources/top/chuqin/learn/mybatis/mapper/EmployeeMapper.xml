@@ -3,6 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.chuqin.learn.mybatis.mapper.EmployeeMapper">
 
+    <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"></cache>
 
     <select id="selectEmployeeById"
             resultType="employee">
@@ -14,25 +15,10 @@
           id = #{id}
     </select>
 
-    <!-- if示例 -->
-    <select id="selectEmployeeByIdLike"
-            resultType="employee">
-      SELECT
-        *
-      FROM
-        tb_employee
-      WHERE
-        state = 'ACTIVE'
-        <!-- 可选条件，如果传进来的参数有id属性，则加上id查询条件 -->
-        <if test="id != null">
-            and id = #{id}
-        </if>
-    </select>
-
     <!-- set示例 -->
     <update id="updateEmployeeIfNecessary" parameterType="employee">
         UPDATE
-          tb_employee
+        tb_employee
         <set>
             <if test="loginname != null">
                 loginname = #{loginname},
@@ -60,35 +46,6 @@
             </if>
         </set>
         WHERE
-          id = #{id}
+        id = #{id}
     </update>
-
-    <!-- foreach示例 -->
-    <select id="selectEmployeeIn" resultType="employee">
-        SELECT
-          *
-        FROM
-          tb_employee
-        WHERE
-          id
-        IN
-          <foreach collection="list" item="item" index="index"
-                   open="(" separator="," close=")">
-              #{item}
-          </foreach>
-    </select>
-
-    <!-- bind示例 -->
-    <select id="selectEmployeeLikeLoginname" resultType="employee">
-        <bind name="pattern" value=" '%' + _parameter.get('loginname') + '%' "></bind>
-        SELECT
-          *
-        FROM
-          tb_employee
-        WHERE
-          loginname
-        LIKE
-          #{pattern}
-    </select>
-
 </mapper>

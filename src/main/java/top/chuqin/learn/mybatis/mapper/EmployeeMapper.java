@@ -8,11 +8,7 @@ import java.util.Map;
 /**
  * Created by wengchuqin on 2017/12/22.
  */
-public interface EmployeeMapper {
+public interface EmployeeMapper{
     Employee selectEmployeeById(Integer id);
-    List<Employee> selectEmployeeByIdLike(Map<String, Object> params);
     void updateEmployeeIfNecessary(Employee employee);
-    List<Employee> selectEmployeeIn(List<Integer> ids);
-    List<Employee> selectEmployeeIn(Map<String, Object> params);
-    List<Employee> selectEmployeeLikeLoginname(Map<String, Object> params);
 }

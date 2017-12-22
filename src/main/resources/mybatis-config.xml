@@ -11,6 +11,9 @@
         <setting name="logImpl" value="LOG4J"/>
         <setting name="lazyLoadingEnabled" value="true"></setting>
         <setting name="aggressiveLazyLoading" value="false"></setting>
+
+        <!-- 开启二级缓存 -->
+        <setting name="cacheEnabled" value="true"></setting>
     </settings>
 
     <!-- 定义类的别名 -->

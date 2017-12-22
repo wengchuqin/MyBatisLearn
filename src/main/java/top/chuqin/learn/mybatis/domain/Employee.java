@@ -1,9 +1,11 @@
 package top.chuqin.learn.mybatis.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by wengchuqin on 2017/12/22.
  */
-public class Employee {
+public class Employee implements Serializable {
 
     private Integer id;
     private String loginname;
