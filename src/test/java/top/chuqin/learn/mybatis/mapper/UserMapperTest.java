@@ -1,50 +1,34 @@
 package top.chuqin.learn.mybatis.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.apache.ibatis.annotations.*;
 import top.chuqin.learn.mybatis.domain.User;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import static org.junit.Assert.*;
+import java.util.List;
 
 /**
  * Created by wengchuqin on 2017/12/25.
  */
-public class UserMapperTest {
-    private static SqlSessionFactory sqlSessionFactory = null;
-    SqlSession session = null;
+public interface UserMapper {
 
-    @BeforeClass
-    public static void initSqlSessionFactory() throws IOException {
-        InputStream inputStream = null;
-        inputStream = Resources.getResourceAsStream("mybatis-config.xml");
-        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-    }
+    @Insert("INSERT INTO tb_user(name, sex, age) VALUES(#{name}, #{sex}, #{age})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    int saveUser(User user);
 
-    @Before
-    public void initSqlSession(){
-        session = sqlSessionFactory.openSession();
-    }
+    @Delete("DELETE FROM tb_user WHERE id = #{id}")
+    int removeUser(@Param("id") Integer id);
 
-    @After
-    public void afterSession(){
-        session.commit();
-        session.close();
-    }
+    @Update("UPDATE tb_user SET name = #{name}, sex = #{sex}, age = #{age} WHERE id = #{id}")
+    void modifyUser(User user);
 
-    @Test
-    public void testSaveUser() throws Exception {
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        User user = new User("chuqinss", "男", 123);
-        mapper.saveUser(user);
-    }
+    @Select("SELECT * FROM tb_user WHERE id = #{id}")
+    @Results({
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "name", property = "name"),
+            @Result(column = "sex", property = "sex"),
+            @Result(column = "age", property = "age")
+    })
+    User selectUserById(Integer id);
+
+    @Select("SELECT * FROM tb_user")
+    List<User> selectAllUser();
 }
