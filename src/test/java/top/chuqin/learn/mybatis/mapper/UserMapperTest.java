@@ -1,34 +1,76 @@
 package top.chuqin.learn.mybatis.mapper;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import top.chuqin.learn.mybatis.domain.User;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by wengchuqin on 2017/12/25.
  */
-public interface UserMapper {
+public class UserMapperTest {
+    private static SqlSessionFactory sqlSessionFactory = null;
+    SqlSession session = null;
+    UserMapper mapper = null;
 
-    @Insert("INSERT INTO tb_user(name, sex, age) VALUES(#{name}, #{sex}, #{age})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    int saveUser(User user);
+    @BeforeClass
+    public static void initSqlSessionFactory() throws IOException {
+        InputStream inputStream = null;
+        inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    }
 
-    @Delete("DELETE FROM tb_user WHERE id = #{id}")
-    int removeUser(@Param("id") Integer id);
+    @Before
+    public void beforeSession(){
+        session = sqlSessionFactory.openSession();
+        mapper = session.getMapper(UserMapper.class);
+    }
 
-    @Update("UPDATE tb_user SET name = #{name}, sex = #{sex}, age = #{age} WHERE id = #{id}")
-    void modifyUser(User user);
+    @After
+    public void afterSession(){
+        session.commit();
+        session.close();
+    }
 
-    @Select("SELECT * FROM tb_user WHERE id = #{id}")
-    @Results({
-            @Result(id = true, column = "id", property = "id"),
-            @Result(column = "name", property = "name"),
-            @Result(column = "sex", property = "sex"),
-            @Result(column = "age", property = "age")
-    })
-    User selectUserById(Integer id);
+    @Test
+    public void testSaveUser() throws Exception {
+        User user = new User("chuqinss", "男", 123);
+        mapper.saveUser(user);
+    }
 
-    @Select("SELECT * FROM tb_user")
-    List<User> selectAllUser();
+    @Test
+    public void testRemoveUser() throws Exception {
+        mapper.removeUser(4);
+    }
+
+    @Test
+    public void testModifyUser() throws Exception {
+        User user = new User("chuqinafang", "男", 123);
+        user.setId(5);
+        mapper.modifyUser(user);
+    }
+
+    @Test
+    public void testSelectUserById() throws Exception {
+        User user = mapper.selectUserById(5);
+        System.out.println(user);
+    }
+
+    @Test
+    public void testSelectAllUser() throws Exception {
+        List<User> users = mapper.selectAllUser();
+        System.out.println(users);
+    }
 }
