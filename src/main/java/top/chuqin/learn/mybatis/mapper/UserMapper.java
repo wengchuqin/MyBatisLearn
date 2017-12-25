@@ -1,7 +1,6 @@
 package top.chuqin.learn.mybatis.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.*;
 import top.chuqin.learn.mybatis.domain.User;
 
 /**
@@ -9,8 +8,7 @@ import top.chuqin.learn.mybatis.domain.User;
  */
 public interface UserMapper {
 
-    @Insert("INSERT INTO tb_user(name, sex, age) VALUES(#{name}, #{sex}, #{age})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    int saveUser(User user);
-
+    @Select("SELECT * FROM tb_user WHERE loginname = #{loginname} and password = #{password}")
+    User findWithLoginnameAndPassword(@Param("loginname") String loginname,
+                                      @Param("password") String password);
 }
