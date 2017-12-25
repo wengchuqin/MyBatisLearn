@@ -1,10 +1,6 @@
 # MyBatisLearn MyBatis学习项目
 
-# 分支列表
-- master
-- basic
-
-## master分支需要的环境
+## 注解分支需要的环境
 ### 数据库
 create database mybatis;<br/>
 use mybatis;<br/>
